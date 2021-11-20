@@ -2,6 +2,9 @@
 
 @section('content')
     <div class="card mt-2">
+        @if($errors->any())
+            <h4>{{$errors->first()}}</h4>
+        @endif
         <div class="card-header">
             <h2 class="card-title">Daftar Buku</h2>
             {{-- @can('tambah master pengguna') --}}

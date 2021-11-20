@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Storage;
 use Validator;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use Illuminate\Support\Facades\Response;
 
 class MasterController extends Controller
 {
@@ -100,29 +101,32 @@ class MasterController extends Controller
             'name' => 'required',
         ]);
 
-        $fileModel = new Book;
+        // $fileModel = new Book;
         if($request->file()) {
             $fileName = time().'_'.$request->file->getClientOriginalName();
             $filePath = $request->file('file')->storeAs('uploads', $fileName, 'public');
 
-            $fileModel->name = $request->name;
-            $fileModel->path = 'storage/' . $filePath;
-            $fileModel->save();
+            $books = Book::create([
+                'name' => $request->name,
+                'path' => 'storage/' . $filePath,
+            ]);
 
             return back()
             ->with('success','File has been uploaded.')
             ->with('file', $fileName);
         }
 
-        return back();
+        return back()->withErrors(['msg' => 'The Message']);
     }
 
     public function getPdfFile($id){
         $book = Book::findOrFail($id);
         $path = $book->path;
-        // $name = $book->name;
-        // $headers = ['Content-Type' => 'application/pdf', 'filename=\"'.$name.'\"'];
-        return response()->file($path);
+        $response = Response::make($path, 200);
+        $response->header('Content-Type', 'application/pdf');
+        $response->header('Content-disposition','attachment; filename="'.$book->name.'.pdf"');
+        return $response;
+        // return response()->file($path, $book->name);
     }
 
     

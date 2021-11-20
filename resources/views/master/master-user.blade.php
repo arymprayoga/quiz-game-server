@@ -4,11 +4,9 @@
     <div class="card mt-2">
         <div class="card-header">
             <h2 class="card-title">Data User</h2>
-            @can('tambah master pengguna')
                 <a data-toggle="modal" data-target="#modaltambahuser"><button type="button" class="btn btn-info btn-sm"
                         style="float: right;"><i class="fa fa-plus"></i> Tambah
                         User</button></a>
-            @endcan
         </div>
         <div class="card-body">
             <table class="table table-bordered table-striped" id="users-table">

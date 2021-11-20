@@ -42,5 +42,6 @@ Route::prefix('master/')->group(function () {
 Route::post('submit-soal', [App\Http\Controllers\SoalController::class, 'submitSoal'])->name('submitSoal');
 Route::post('submit-jawaban', [App\Http\Controllers\SoalController::class, 'submitJawaban'])->name('submitJawaban');
 Route::get('list-buku', [App\Http\Controllers\SoalController::class, 'listBuku'])->name('listBuku');
+Route::post('login-game', [App\Http\Controllers\SoalController::class, 'loginGameProcess'])->name('loginGame');
 
 
