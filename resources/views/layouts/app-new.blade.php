@@ -7,7 +7,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 <head>
     @include('layouts.header')
-    <title>ERP</title>
+    <title>Quiz Game Server</title>
 </head>
 
 <body class="hold-transition sidebar-mini">

@@ -2,7 +2,7 @@
 <a href="index3.html" class="brand-link">
     {{-- <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
         style="opacity: .8"> --}}
-    <span class="brand-text font-weight-light">Boilerplate</span>
+    <span class="brand-text font-weight-light">Quiz Game Server</span>
 </a>
 
 <!-- Sidebar -->
@@ -40,14 +40,21 @@
                 </a>
                 <ul class="nav nav-treeview">
                     {{-- @can('lihat master pengguna') --}}
-                        <li class="nav-item">
-                            <a href="{{ route('data-user') }}"
-                                class="nav-link {{ request()->is('master/data-user') ? 'active' : '' }}">
-                                <i class="fas fa-user nav-icon"></i>
-                                <p>User</p>
-                            </a>
-                        </li>
+                    <li class="nav-item">
+                        <a href="{{ route('data-user') }}"
+                            class="nav-link {{ request()->is('master/data-user') ? 'active' : '' }}">
+                            <i class="fas fa-user nav-icon"></i>
+                            <p>User</p>
+                        </a>
+                    </li>
                     {{-- @endcan --}}
+                    <li class="nav-item">
+                        <a href="{{ route('data-buku') }}"
+                            class="nav-link {{ request()->is('master/data-buku') ? 'active' : '' }}">
+                            <i class="fas fa-book nav-icon"></i>
+                            <p>Buku</p>
+                        </a>
+                    </li>
                 </ul>
             </li>
             <li class="nav-item">

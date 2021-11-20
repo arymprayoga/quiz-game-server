@@ -31,7 +31,6 @@ integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yA
 </script>
 <script type="text/javascript">
     $(document).ready(function() {
-
         dt = $('#users-table').DataTable({
             "processing": true,
             // "initComplete" : function (settings, json) {
@@ -64,6 +63,43 @@ integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yA
                 },
             ],
             "ajax": "{{ url('master/data-user-get') }}",
+        });
+
+        $(document).ready(function() {
+
+            dt = $('#buku-table').DataTable({
+                "processing": true,
+                // "initComplete" : function (settings, json) {
+                //     $('#users-table').show();
+                // },
+                "serverSide": true,
+                // "select" : true,
+                // "dataSrc" : "tableData",
+                // "bDestroy": true,
+                "columns": [{
+                        "data": "id",
+                        "name": "id",
+                        "title": "Buku ID"
+                    },
+                    {
+                        "data": "name",
+                        "name": "name",
+                        "title": "Judul Buku"
+                    },
+                    {
+                        "data": "created_at",
+                        "name": "created_at",
+                        "title": "Tanggal Upload"
+                    },
+                    {
+                        "data": "action",
+                        "name": "action",
+                        "orderable": false,
+                        "searchable": false
+                    },
+                ],
+                "ajax": "{{ url('master/data-buku-get') }}",
+            });
         });
     });
 </script>
