@@ -26,6 +26,7 @@ class SoalController extends Controller
             $soal->save();
         } else if ($request->data['jenisSoal'] == 'pilgan'){
             $soal = new Soal;
+            $soal->serverID = $request->data['serverID'];
             $soal->idKelas = $request->data['idLobby'];
             $soal->namaGuru = $request->data['namaGuru'];
             $soal->soal = $request->data['soal'];
