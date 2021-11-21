@@ -46,14 +46,19 @@ integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yA
                     "title": "User ID"
                 },
                 {
-                    "data": "email",
-                    "name": "email",
-                    "title": "Email"
+                    "data": "username",
+                    "name": "username",
+                    "title": "Username"
                 },
                 {
                     "data": "name",
                     "name": "name",
                     "title": "Nama User"
+                },
+                {
+                    "data": "nip",
+                    "name": "nip",
+                    "title": "NIP"
                 },
                 {
                     "data": "action",
@@ -101,18 +106,36 @@ integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yA
                 "ajax": "{{ url('master/data-buku-get') }}",
             });
         });
-    });
-</script>
 
-{{-- <script>
-    $('.modalubahrole').click(function() {
-        var id = $(this).attr('data-id');
-        $.ajax({
-            url: "localhost/master/testing?id=" + id,
-            cache: false,
-            success: function(result) {
-                $(".modal-content").html(result);
-            }
+        $(document).ready(function() {
+
+            dt = $('#soal-table').DataTable({
+                "processing": true,
+                "serverSide": true,
+                "columns": [{
+                        "data": "id",
+                        "name": "id",
+                        "title": "Soal ID"
+                    },
+                    {
+                        "data": "idKelas",
+                        "name": "idKelas",
+                        "title": "ID Kelas"
+                    },
+                    {
+                        "data": "tanggal",
+                        "name": "tanggal",
+                        "title": "Tanggal Kelas"
+                    },
+                    {
+                        "data": "action",
+                        "name": "action",
+                        "orderable": false,
+                        "searchable": false
+                    },
+                ],
+                "ajax": "{{ url('master/data-soal-get') }}",
+            });
         });
     });
-</script> --}}
+</script>

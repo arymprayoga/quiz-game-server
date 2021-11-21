@@ -16,6 +16,7 @@ class CreateSoalTable extends Migration
         Schema::create('soal', function (Blueprint $table) {
             $table->id();
             $table->string('idKelas');
+            $table->unsignedBigInteger('serverID');
             $table->string('namaGuru');
             $table->string('soal');
             $table->string('jawabanA');
@@ -25,6 +26,8 @@ class CreateSoalTable extends Migration
             $table->string('jawabanBenar');
             $table->string('jenisSoal');
             $table->timestamps();
+
+            $table->foreign('serverID')->references('id')->on('users');
         });
     }
 

@@ -14,7 +14,13 @@ class Jawaban extends Model
     
     protected $fillable = [
         'idSoal',
+        'idSiswa',
         'namaSiswa',
         'jawabanSiswa',
     ];
+
+    public function soal()
+    {
+        return $this->belongsTo(Soal::class, 'idSoal', 'id');
+    }
 }

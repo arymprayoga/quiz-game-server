@@ -16,6 +16,7 @@
                         <th>Email</th>
                         <th>Email</th>
                         <th>Aksi</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
             </table>
@@ -34,10 +35,10 @@
                 </div>
                 <form action="{{ route('delete-master-user') }}" method="post">
                     {{ csrf_field() }}
-                    <input type="hidden" name="idUser" id="idUser">
+                    <input type="hidden" name="id" id="id">
                     <div class="modal-body">
                         <p>Yakin ingin menghapus pengguna ini?</p>
-                        <p class="username"></p>
+                        <p class="name"></p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -61,13 +62,17 @@
                 <form action="{{ route('add-master-user') }}" method="post">
                     {{ csrf_field() }}
                     <div class="modal-body">
-                        {{-- <div class="form-group">
+                        <div class="form-group">
                             <label for="username">Username</label>
                             <input type="text" class="form-control" required name="username" id="username">
-                        </div> --}}
+                        </div>
                         <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" class="form-control" required name="email" id="email">
+                            <label for="name">Nama</label>
+                            <input type="text" class="form-control" required name="name" id="name">
+                        </div>
+                        <div class="form-group">
+                            <label for="nip">NIP</label>
+                            <input type="text" class="form-control" required name="nip" id="nip">
                         </div>
                         <div class="form-group">
                             <label for="password">Password</label>
@@ -77,6 +82,47 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary">Tambah</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    {{-- Modal Ubah Pengguna --}}
+    <div class="modal fade" id="modalubahuser" role="dialog" aria-labelledby="modalubahuserLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalubahuserLabel">Edit Pengguna</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="{{ route('edit-master-user') }}" method="post">
+                    {{ csrf_field() }}
+                    <input type="hidden" name="id" id="id">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="username">Username</label>
+                            <input type="text" class="form-control" name="username" id="username">
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Nama</label>
+                            <input type="text" class="form-control" required name="name" id="name">
+                        </div>
+                        <div class="form-group">
+                            <label for="nip">NIP</label>
+                            <input type="text" class="form-control" required name="nip" id="nip">
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" class="form-control" required name="password" id="password">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success">Edit</button>
                     </div>
                 </form>
             </div>

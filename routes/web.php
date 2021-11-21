@@ -28,13 +28,19 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::prefix('master/')->group(function () {
     Route::get('data-user', [App\Http\Controllers\MasterController::class, 'getViewMasterUser'])->name('data-user');
     Route::get('data-user-get', [App\Http\Controllers\MasterController::class, 'getDataMasterUser'])->name('data-user-get');
-    Route::post('data-user-add', [App\Http\Controllers\MasterController::class, 'addDataMasterUser'])->name('add-master-user')->middleware('can:tambah master pengguna');
-    Route::post('data-user-delete', [App\Http\Controllers\MasterController::class, 'deleteDataMasterUser'])->name('delete-master-user')->middleware('can:hapus master pengguna');
+    Route::post('data-user-add', [App\Http\Controllers\MasterController::class, 'addDataMasterUser'])->name('add-master-user');
+    Route::post('data-user-delete', [App\Http\Controllers\MasterController::class, 'deleteDataMasterUser'])->name('delete-master-user');
+    Route::post('data-user-edit', [App\Http\Controllers\MasterController::class, 'editDataMasterUser'])->name('edit-master-user');
 
     Route::get('data-buku', [App\Http\Controllers\MasterController::class, 'getViewMasterBuku'])->name('data-buku');
     Route::get('data-buku-get', [App\Http\Controllers\MasterController::class, 'getDataMasterBuku'])->name('data-buku-get');
     Route::post('data-buku-add', [App\Http\Controllers\MasterController::class, 'addDataMasterBuku'])->name('add-master-buku');
     Route::post('data-buku-delete', [App\Http\Controllers\MasterController::class, 'deleteDataMasterBuku'])->name('delete-master-buku');
+
+    Route::get('data-soal', [App\Http\Controllers\MasterController::class, 'getViewMasterSoal'])->name('data-soal');
+    Route::get('data-soal-get', [App\Http\Controllers\MasterController::class, 'getDataMasterSoal'])->name('data-soal-get');
+    Route::get('detail-soal-get/{id}', [App\Http\Controllers\MasterController::class, 'getViewMasterDetailSoal'])->name('detail-soal-get');
+    Route::get('export-soal/{id}', [App\Http\Controllers\MasterController::class, 'exportExcel'])->name('export-soal');
 
     Route::get('get-pdf/{id}', [App\Http\Controllers\MasterController::class, 'getPdfFile']);
 });

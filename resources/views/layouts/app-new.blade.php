@@ -53,6 +53,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- REQUIRED SCRIPTS -->
 
     @include('layouts.script')
+    @include('sweetalert::alert')
     @yield('tambahan-script')
 </body>
 

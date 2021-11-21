@@ -57,7 +57,7 @@ class SoalController extends Controller
 
     public function loginGameProcess(Request $request){
         
-        $user = User::where('email', $request->username)->first();
+        $user = User::where('username', $request->username)->first();
         if($user){
             $pass = Hash::check($request->password, $user->password);
             if($pass){

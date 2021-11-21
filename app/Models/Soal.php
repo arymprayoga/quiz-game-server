@@ -11,9 +11,10 @@ class Soal extends Model
 
     protected $table = 'soal';
     protected $primaryKey = 'id';
-    
+
     protected $fillable = [
         'idKelas',
+        'serverID',
         'namaGuru',
         'soal',
         'jawabanA',
@@ -23,4 +24,14 @@ class Soal extends Model
         'jawabanBenar',
         'jenisSoal'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'serverID', 'id');
+    }
+
+    public function jawaban()
+    {
+        return $this->hasMany(Jawaban::class, 'idSoal');
+    }
 }

@@ -55,6 +55,13 @@
                             <p>Buku</p>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="{{ route('data-soal') }}"
+                            class="nav-link {{ request()->is('master/data-soal') ? 'active' : '' }}">
+                            <i class="fas fa-book nav-icon"></i>
+                            <p>Soal</p>
+                        </a>
+                    </li>
                 </ul>
             </li>
             <li class="nav-item">

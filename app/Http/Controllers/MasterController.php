@@ -2,16 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\MultipleExport;
+use App\Exports\SoalExport;
 use App\Models\Book;
+use App\Models\Jawaban;
+use App\Models\Soal;
 use Yajra\Datatables\Datatables;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Storage;
-use Validator;
-use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\Response;
+use Maatwebsite\Excel\Facades\Excel;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class MasterController extends Controller
 {
@@ -31,8 +35,8 @@ class MasterController extends Controller
         if ($request->ajax()) {
             $data = User::all();
             return Datatables::of($data)->addColumn('action', function ($data) {
-                return '<a data-toggle="modal" data-target="#modalubahuser" data-id="' . $data->id . '" data-username="' . $data->name . '" data-email="' . $data->email . '" class="btn btn-xs btn-primary mr-2" ><i class="fas fa-edit"></i></a>
-                <a data-toggle="modal" data-target="#modalhapususer" data-id="' . $data->id . '" data-username="' . $data->name . '" class="btn btn-xs btn-danger"><i class="fas fa-trash"></i></a>';
+                return '<a data-toggle="modal" data-target="#modalubahuser" data-id="' . $data->id . '" data-name="' . $data->name . '" data-nip="' . $data->nip . '" data-username="' . $data->username . '" class="btn btn-xs btn-primary mr-2" ><i class="fas fa-edit"></i></a>
+                <a data-toggle="modal" data-target="#modalhapususer" data-id="' . $data->id . '" data-name="' . $data->name . '" class="btn btn-xs btn-danger"><i class="fas fa-trash"></i></a>';
             })->make(true);
         }
     }
@@ -42,25 +46,61 @@ class MasterController extends Controller
         $validated = $request->validate([
             'id' => 'required',
         ]);
-        $user = User::findOrFail($request->idUser);
+        $user = User::findOrFail($request->id);
         $user->delete();
+        if($user){
+            Alert::success('Berhasil!', 'Berhasil melakukan hapus data');
+        } else {
+            Alert::error('Gagal!', 'Terjadi error saat menghapus data');
+        }
         return back();
     }
 
     public function addDataMasterUser(Request $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|max:255',
-            'email' => 'required|unique:users',
+        $request->validate([
+            'username' => 'required|max:255|unique:users',
+            'name' => 'required',
+            'nip' => 'required',
             'password' => 'required',
         ]);
 
         $user = User::create([
+            'username' => $request->username,
             'name' => $request->name,
-            'email' => $request->email,
+            'nip' => $request->nip,
             'password' => Hash::make($request->password)
         ]);
 
+        if($user){
+            Alert::success('Berhasil!', 'Berhasil melakukan edit data');
+        } else {
+            Alert::error('Gagal!', 'Terjadi error saat menginput data');
+        }
+        
+        return back();
+    }
+
+    public function editDataMasterUser(Request $request)
+    {
+        $validated = $request->validate([
+            'username' => 'required',
+            'name' => 'required',
+            'nip' => 'required',
+            'password' => 'required',
+        ]);
+
+        $request->merge(['password' => Hash::make($request->password)]);
+
+        $user = User::findOrFail($request->id);
+        $user->update($request->all());
+
+        if($user){
+            Alert::success('Berhasil!', 'Berhasil melakukan edit data');
+        } else {
+            Alert::error('Gagal!', 'Terjadi error saat menginput data');
+        }
+        
         return back();
     }
 
@@ -127,6 +167,38 @@ class MasterController extends Controller
         $response->header('Content-disposition','attachment; filename="'.$book->name.'.pdf"');
         return $response;
         // return response()->file($path, $book->name);
+    }
+
+    public function getViewMasterSoal()
+    {
+        return view('master.master-soal');
+    }
+
+    public function getDataMasterSoal(Request $request)
+    {
+        if ($request->ajax()) {
+            $data = Soal::where('serverID', Auth::user()->id)->groupBy('idKelas')->get();
+            return Datatables::of($data)->addColumn('tanggal', function ($data) {
+                $tanggal = Carbon::parse($data->created_at)->formatLocalized('%d %B %Y');
+                return $tanggal;
+            })->addColumn('action', function ($data) {
+                return '<a href="'.route('detail-soal-get', $data->idKelas).'" class="btn btn-xs btn-success"><i class="fas fa-edit"></i></a>';
+            })->make(true);
+        }
+    }
+
+    public function getViewMasterDetailSoal($id)
+    {
+        $pilgan = Soal::where('idKelas', $id)->where('jenisSoal', 'pilgan')->get();
+        $essay = Soal::where('idKelas', $id)->where('jenisSoal', 'essay')->get();
+
+        return view('master.master-soal-detail', compact('pilgan', 'essay', 'id'));
+    }
+    
+    public function exportExcel($id){
+        $soal = Soal::where('idKelas', $id)->first();
+        $tanggal = date('Y-m-d');
+        return Excel::download(new MultipleExport($id), $tanggal.' - '.$id.'.xlsx');
     }
 
     
