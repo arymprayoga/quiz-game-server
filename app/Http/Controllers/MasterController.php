@@ -73,7 +73,7 @@ class MasterController extends Controller
         ]);
 
         if($user){
-            Alert::success('Berhasil!', 'Berhasil melakukan edit data');
+            Alert::success('Berhasil!', 'Berhasil melakukan tambah data');
         } else {
             Alert::error('Gagal!', 'Terjadi error saat menginput data');
         }

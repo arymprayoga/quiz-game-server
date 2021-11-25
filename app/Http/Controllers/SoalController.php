@@ -61,7 +61,7 @@ class SoalController extends Controller
         if($user){
             $pass = Hash::check($request->password, $user->password);
             if($pass){
-                return $user->id;
+                return $user;
             }
         }
         return abort(500, 'custom error');

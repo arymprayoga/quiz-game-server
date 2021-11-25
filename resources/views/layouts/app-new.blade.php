@@ -38,9 +38,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- /.content-wrapper -->
 
         <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
+        {{-- <aside class="control-sidebar control-sidebar-dark">
             @include('layouts.controlbar')
-        </aside>
+        </aside> --}}
         <!-- /.control-sidebar -->
 
         <!-- Main Footer -->

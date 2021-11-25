@@ -40,21 +40,23 @@
                 </a>
                 <ul class="nav nav-treeview">
                     {{-- @can('lihat master pengguna') --}}
-                    <li class="nav-item">
-                        <a href="{{ route('data-user') }}"
-                            class="nav-link {{ request()->is('master/data-user') ? 'active' : '' }}">
-                            <i class="fas fa-user nav-icon"></i>
-                            <p>User</p>
-                        </a>
-                    </li>
-                    {{-- @endcan --}}
-                    <li class="nav-item">
-                        <a href="{{ route('data-buku') }}"
-                            class="nav-link {{ request()->is('master/data-buku') ? 'active' : '' }}">
-                            <i class="fas fa-book nav-icon"></i>
-                            <p>Buku</p>
-                        </a>
-                    </li>
+                    @if (Auth::user()->id == 1)
+                        <li class="nav-item">
+                            <a href="{{ route('data-user') }}"
+                                class="nav-link {{ request()->is('master/data-user') ? 'active' : '' }}">
+                                <i class="fas fa-user nav-icon"></i>
+                                <p>User</p>
+                            </a>
+                        </li>
+                        {{-- @endcan --}}
+                        <li class="nav-item">
+                            <a href="{{ route('data-buku') }}"
+                                class="nav-link {{ request()->is('master/data-buku') ? 'active' : '' }}">
+                                <i class="fas fa-book nav-icon"></i>
+                                <p>Buku</p>
+                            </a>
+                        </li>
+                    @endif
                     <li class="nav-item">
                         <a href="{{ route('data-soal') }}"
                             class="nav-link {{ request()->is('master/data-soal') ? 'active' : '' }}">

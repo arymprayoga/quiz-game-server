@@ -95,18 +95,18 @@
             @foreach ($essay as $item)
                 <p>Soal : {{ $item->soal }}</p>
 
-                <table class="table table-bordered table-striped" id="">
+                <table class="table table-bordered table-striped" style="table-layout: fixed; width: 100%">
                     <thead>
                         <tr>
-                            <th>Nama Siswa</th>
-                            <th>Jawaban Siswa</th>
+                            <th style="width: 20%">Nama Siswa</th>
+                            <th style="width: 80%">Jawaban Siswa</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($item->jawaban as $itemJawaban)
                             <tr>
                                 <td>{{ $itemJawaban->namaSiswa }}</td>
-                                <td>{{ $itemJawaban->jawabanSiswa }}</td>
+                                <td style="white-space: normal !important; word-wrap: break-word">{{ $itemJawaban->jawabanSiswa }}</td>
                             </tr>
                         @endforeach
                     </tbody>

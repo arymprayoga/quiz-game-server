@@ -43,12 +43,13 @@
             @endif
         </tbody>
     </table>
+    @if ($soal->jenisSoal == 'pilgan')
     <table id="customers">
         <thead>
             <tr>
                 <th>No</th>
                 <th>Nama Siswa</th>
-                <th>Jawaban Siswa</th>
+                <th colspan="8">Jawaban Siswa</th>
             </tr>
         </thead>
         <tbody>
@@ -59,7 +60,7 @@
                 <tr>
                     <td>{{ $i }}</td>
                     <td>{{ $itemJawaban->namaSiswa }}</td>
-                    <td>@php
+                    <td colspan="8">@php
                         
                         switch ($itemJawaban->jawabanSiswa) {
                             case '1':
@@ -88,6 +89,34 @@
             @endforeach
         </tbody>
     </table>
+    @endif
+    @if ($soal->jenisSoal == 'essay')
+    <table id="customers">
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Nama Siswa</th>
+                <th colspan="8">Jawaban Siswa</th>
+            </tr>
+        </thead>
+        <tbody>
+            @php
+                $i = 1;
+            @endphp
+            @foreach ($soal->jawaban as $itemJawaban)
+                <tr>
+                    <td>{{ $i }}</td>
+                    <td>{{ $itemJawaban->namaSiswa }}</td>
+                    <td colspan="8">{{$itemJawaban->jawabanSiswa}}</td>
+                </tr>
+                @php
+                    $i++;
+                @endphp
+            @endforeach
+        </tbody>
+    </table>
+    @endif
+    
 </body>
 
 </html>
