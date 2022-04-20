@@ -127,9 +127,9 @@ class MasterController extends Controller
     public function deleteDataMasterBuku(Request $request)
     {
         $validated = $request->validate([
-            'id' => 'required',
+            'idBuku' => 'required',
         ]);
-        $user = Book::findOrFail($request->idUser);
+        $user = Book::findOrFail($request->idBuku);
         $user->delete();
         return back();
     }
@@ -139,16 +139,18 @@ class MasterController extends Controller
         $validatedData = $request->validate([
             'file' => 'required|mimes:pdf|max:2048',
             'name' => 'required',
+            'kategori' => 'required'
         ]);
 
         // $fileModel = new Book;
         if($request->file()) {
-            $fileName = time().'_'.$request->file->getClientOriginalName();
+            $fileName = $request->name.'.'.$request->file->getClientOriginalExtension();
             $filePath = $request->file('file')->storeAs('uploads', $fileName, 'public');
 
             $books = Book::create([
                 'name' => $request->name,
                 'path' => 'storage/' . $filePath,
+                'kategori' => $request->kategori
             ]);
 
             return back()
@@ -165,7 +167,7 @@ class MasterController extends Controller
         $response = Response::make($path, 200);
         $response->header('Content-Type', 'application/pdf');
         $response->header('Content-disposition','attachment; filename="'.$book->name.'.pdf"');
-        return $response;
+        return response()->download($path);
         // return response()->file($path, $book->name);
     }
 

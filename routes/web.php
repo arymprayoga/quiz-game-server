@@ -47,7 +47,9 @@ Route::prefix('master/')->group(function () {
 
 Route::post('submit-soal', [App\Http\Controllers\SoalController::class, 'submitSoal'])->name('submitSoal');
 Route::post('submit-jawaban', [App\Http\Controllers\SoalController::class, 'submitJawaban'])->name('submitJawaban');
-Route::get('list-buku', [App\Http\Controllers\SoalController::class, 'listBuku'])->name('listBuku');
+Route::get('list-buku/{id}', [App\Http\Controllers\SoalController::class, 'listBuku'])->name('listBuku');
 Route::post('login-game', [App\Http\Controllers\SoalController::class, 'loginGameProcess'])->name('loginGame');
+Route::get('download-buku/{id}', [App\Http\Controllers\SoalController::class, 'downloadBuku'])->name('downloadBuku');
+Route::get('search-buku/{id}', [App\Http\Controllers\SoalController::class, 'searchBuku'])->name('searchBuku');
 
 

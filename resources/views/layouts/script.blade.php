@@ -92,6 +92,11 @@ integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yA
                         "title": "Judul Buku"
                     },
                     {
+                        "data": "kategori",
+                        "name": "kategori",
+                        "title": "Kategori Buku"
+                    },
+                    {
                         "data": "created_at",
                         "name": "created_at",
                         "title": "Tanggal Upload"

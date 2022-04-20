@@ -1,22 +1,24 @@
 <?php
- 
+
 namespace App\Http\Controllers;
 
 use App\Models\Jawaban;
 use Illuminate\Http\Request;
 use App\Models\Soal;
+use App\Models\Book;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
- 
+
 class SoalController extends Controller
 {
     //  public function index()
     // {
     //     return view('file-upload');
     // }
- 
-    public function submitSoal(Request $request){
-        if($request->data['jenisSoal'] == 'essay'){
+
+    public function submitSoal(Request $request)
+    {
+        if ($request->data['jenisSoal'] == 'essay') {
             $soal = new Soal;
             $soal->serverID = $request->data['serverID'];
             $soal->idKelas = $request->data['idLobby'];
@@ -24,7 +26,7 @@ class SoalController extends Controller
             $soal->soal = $request->data['soal'];
             $soal->jenisSoal = $request->data['jenisSoal'];
             $soal->save();
-        } else if ($request->data['jenisSoal'] == 'pilgan'){
+        } else if ($request->data['jenisSoal'] == 'pilgan') {
             $soal = new Soal;
             $soal->serverID = $request->data['serverID'];
             $soal->idKelas = $request->data['idLobby'];
@@ -37,30 +39,64 @@ class SoalController extends Controller
             $soal->jawabanBenar = $request->data['opsi'];
             $soal->jenisSoal = $request->data['jenisSoal'];
             $soal->save();
-        }        
+        }
         return $soal->id;
     }
 
-    public function submitJawaban(Request $request){
+    public function submitJawaban(Request $request)
+    {
+        $soal = Soal::find($request->data['id']);
+        $jawabanEssay = null;
+        if ($soal->jenisSoal == 'essay') {
+            if ($request->data['jawaban']) {
+                if ($request->data['jawaban'] == 'null') {
+                    $jawabanEssay = 'Siswa Tidak Menjawab';
+                } else {
+                    $jawabanEssay = $request->data['jawaban'];
+                }
+            }
+        }
+
+
         $jawaban = new Jawaban();
         $jawaban->idSoal = $request->data['id'];
         $jawaban->namaSiswa = $request->data['namaSiswa'];
-        $jawaban->jawabanSiswa = $request->data['jawaban'] ? $request->data['jawaban'] : $request->data['indexJawaban'];
+        $jawaban->jawabanSiswa = $jawabanEssay ? $jawabanEssay : $request->data['indexJawaban'];
         $jawaban->save();
         return "Berhasil";
     }
 
-    public function listBuku(Request $request){
-        $jawaban = Jawaban::all();
+    public function listBuku($id)
+    {
+        if ($id == 'all') {
+            $jawaban = Book::all();
+        } else {
+            $jawaban = Book::where('kategori', '=', $id)->get();
+        }
+        // $jawaban = Book::all();
         return $jawaban;
     }
 
-    public function loginGameProcess(Request $request){
-        
+    public function downloadBuku($id)
+    {
+        $book = Book::findOrFail($id);
+        $path = $book->path;
+        return 'http://103.174.114.25:8000/' . $path;
+    }
+
+    public function searchBuku($id)
+    {
+        $book = Book::where('name', 'like', '%' . $id . '%')->get();
+        return $book;
+    }
+
+    public function loginGameProcess(Request $request)
+    {
+
         $user = User::where('username', $request->username)->first();
-        if($user){
+        if ($user) {
             $pass = Hash::check($request->password, $user->password);
-            if($pass){
+            if ($pass) {
                 return $user;
             }
         }

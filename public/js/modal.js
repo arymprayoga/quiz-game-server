@@ -17,4 +17,12 @@ $(document).ready(function () {
         modal.find('#id').attr("value", div.data('id'));
         $('.name').html('Nama Pengguna: <strong>' + div.data('name') + '</strong>');
     });
+
+    $('#modalhapusbuku').on('show.bs.modal', function (event) {
+        var div = $(event.relatedTarget) // Tombol dimana modal di tampilkan
+        var modal = $(this)
+        // Isi nilai pada field
+        modal.find('#idBuku').attr("value", div.data('id'));
+        $('.nama').html('Judul Buku: <strong>' + div.data('name') + '</strong>');
+    });
 });

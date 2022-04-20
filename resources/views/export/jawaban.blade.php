@@ -19,6 +19,9 @@
                     <td colspan="8">
                         @php                            
                             switch ($soal->jawabanBenar) {
+                                case '0':
+                                    echo 'Siswa Tidak Menjawab';
+                                    break;
                                 case '1':
                                     echo 'A';
                                     break;
@@ -63,6 +66,9 @@
                     <td colspan="8">@php
                         
                         switch ($itemJawaban->jawabanSiswa) {
+                            case '0':
+                                    echo 'Siswa Tidak Menjawab';
+                                    break;
                             case '1':
                                 echo 'A';
                                 break;

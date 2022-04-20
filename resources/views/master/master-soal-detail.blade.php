@@ -54,6 +54,9 @@
                                 <td>@php
                                     
                                     switch ($itemJawaban->jawabanSiswa) {
+                                        case '0':
+                                            echo 'Siswa Tidak Menjawab';
+                                            break;
                                         case '1':
                                             echo 'A';
                                             break;
