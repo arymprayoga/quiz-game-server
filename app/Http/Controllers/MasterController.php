@@ -136,11 +136,13 @@ class MasterController extends Controller
 
     public function addDataMasterBuku(Request $request)
     {
-        $validatedData = $request->validate([
-            'file' => 'required|mimes:pdf|max:2048',
-            'name' => 'required',
-            'kategori' => 'required'
-        ]);
+        // $validatedData = $request->validate([
+        //     'file' => 'required|mimes:pdf',
+        //     'name' => 'required',
+        //     'kategori' => 'required'
+        // ]);
+
+        // dd($request->file('file'));
 
         // $fileModel = new Book;
         if($request->file()) {
